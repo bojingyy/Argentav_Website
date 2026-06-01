@@ -4,50 +4,52 @@ import {
   Crosshair,
   Radar,
   ShieldCheck,
-  Timer,
   Waypoints,
 } from "lucide-react";
 
-const capabilities = [
+const audienceSections = [
   {
-    title: "Airspace Drone Detection",
-    text: "Multi-sensor AI fusion identifies hostile drones in low-visibility and high-clutter skies.",
+    id: "drone-makers",
+    eyebrow: "For Drone Makers",
+    title: "Add Nvidia-Powered Vision To Your Drone Platform",
+    text: "Argentav Vision helps drone manufacturers integrate onboard detection, tracking, and scene understanding into aircraft that need reliable performance at the edge.",
+    highlights: [
+      "Run onboard on Nvidia hardware for low-latency decisions.",
+      "Support payload teams with vision modules ready for integration.",
+      "Reduce development time for tracking and classification features.",
+    ],
     icon: Radar,
   },
   {
-    title: "Ground Target Discovery",
-    text: "Computer vision models classify vehicles and ground activity in real time for command teams.",
+    id: "ground-defense",
+    eyebrow: "For Ground Defense Builders",
+    title: "Strengthen Military Ground Defense Systems",
+    text: "Argentav Vision gives system builders a software layer for persistent detection, sensor fusion workflows, and fast alerting across fixed or mobile ground defense deployments.",
+    highlights: [
+      "Detect and classify aerial and ground threats in real time.",
+      "Feed actionable outputs into defense control and monitoring systems.",
+      "Scale across distributed nodes with a consistent software stack.",
+    ],
     icon: Crosshair,
   },
   {
-    title: "Decision-Ready Alerts",
-    text: "Prioritized event scoring reduces operator load and routes actionable alerts in seconds.",
-    icon: Timer,
-  },
-];
-
-const workflow = [
-  {
-    step: "01",
-    title: "Capture",
-    text: "Ingest EO/IR, radar, and telemetry feeds from mobile or fixed nodes.",
-  },
-  {
-    step: "02",
-    title: "Classify",
-    text: "Run edge AI pipelines to detect, classify, and track air and ground signatures.",
-  },
-  {
-    step: "03",
-    title: "Coordinate",
-    text: "Push synchronized intelligence to operators and command systems.",
+    id: "civilian-use",
+    eyebrow: "For Civilian Use",
+    title: "Deploy Vision Software For Commercial And Public Safety Operations",
+    text: "Argentav Vision also supports civilian teams that need dependable monitoring for infrastructure, site security, inspection, and emergency response scenarios.",
+    highlights: [
+      "Monitor sensitive facilities and critical infrastructure more efficiently.",
+      "Improve situational awareness for inspection and response teams.",
+      "Use one software platform across evolving operational environments.",
+    ],
+    icon: Waypoints,
   },
 ];
 
 function SectionHeader({ eyebrow, title, text }) {
   return (
     <div className="max-w-3xl">
-      <p className="font-['Sora'] text-xs uppercase tracking-[0.28em] text-[#9ad0ff]">{eyebrow}</p>
+      {eyebrow ? <p className="font-['Sora'] text-xs uppercase tracking-[0.28em] text-[#9ad0ff]">{eyebrow}</p> : null}
       <h2 className="mt-3 font-['Sora'] text-3xl font-bold tracking-tight text-white md:text-5xl">{title}</h2>
       <p className="mt-4 max-w-2xl text-base leading-7 text-[#d1def7]">{text}</p>
     </div>
@@ -62,8 +64,9 @@ export default function App() {
       <header className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-7 lg:px-8">
         <div className="font-['Sora'] text-lg font-semibold tracking-[0.2em] text-[#d8e9ff]">ARGENTAV VISION</div>
         <nav className="hidden gap-8 text-sm text-[#b4c7ea] md:flex">
-          <a href="#capabilities" className="transition hover:text-white">Capabilities</a>
-          <a href="#workflow" className="transition hover:text-white">Workflow</a>
+          <a href="#drone-makers" className="transition hover:text-white">Drone Makers</a>
+          <a href="#ground-defense" className="transition hover:text-white">Ground Defense</a>
+          <a href="#civilian-use" className="transition hover:text-white">Civilian Use</a>
           <a href="#contact" className="transition hover:text-white">Contact</a>
         </nav>
       </header>
@@ -76,15 +79,13 @@ export default function App() {
             transition={{ duration: 0.7 }}
             className="max-w-4xl"
           >
-            <p className="font-['Sora'] text-xs uppercase tracking-[0.3em] text-[#9ad0ff]">AI Vision Defense Platform</p>
             <h1 className="mt-4 max-w-4xl font-['Sora'] text-5xl font-extrabold leading-[0.95] tracking-tight text-white md:text-7xl">
               Detect Drones In The Sky.
               <br />
               Track Targets On The Ground.
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-[#d6e4fb]">
-              Argentav delivers mission-ready AI vision to identify airborne threats and ground movements faster,
-              with higher confidence, across contested environments.
+              Argentav Vision is a mission-ready software solution built to run on Nvidia hardware.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <a
@@ -95,63 +96,53 @@ export default function App() {
                 <ArrowRight size={18} />
               </a>
               <a
-                href="#capabilities"
+                href="#drone-makers"
                 className="inline-flex items-center rounded-xl border border-[#6680ab] px-5 py-3 font-semibold text-[#d8e9ff] transition hover:border-[#95b8ea]"
               >
-                Explore Capabilities
+                Explore Solutions
               </a>
             </div>
           </motion.div>
         </section>
 
-        <section id="capabilities" className="mx-auto mt-8 w-full max-w-7xl px-6 lg:px-8">
+        <section className="mx-auto mt-8 w-full max-w-7xl px-6 lg:px-8">
           <SectionHeader
-            eyebrow="Core Capabilities"
-            title="One Platform, Multi-Domain Awareness"
-            text="This baseline layout highlights your product value with a structure that can expand into detailed pages, demos, and technical specs."
+            title="Built For The Teams Bringing Vision Systems Into The Field"
+            text="Whether you are building drones, strengthening ground defense systems, or deploying civilian monitoring solutions, Argentav Vision delivers software designed for fast detection, dependable performance, and real-world operations."
           />
 
-          <div className="mt-8 grid gap-4 md:grid-cols-3">
-            {capabilities.map(({ title, text, icon: Icon }, index) => (
-              <motion.article
-                key={title}
+          <div className="mt-8 space-y-6">
+            {audienceSections.map(({ id, eyebrow, title, text, highlights, icon: Icon }, index) => (
+              <motion.section
+                key={id}
+                id={id}
                 initial={{ opacity: 0, y: 18 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.4 }}
                 transition={{ delay: index * 0.08, duration: 0.45 }}
-                className="section-block rounded-xl p-5"
+                className="section-block rounded-2xl p-6 md:p-8"
               >
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-[#3b5788] bg-[#0f1d39] text-[#9ad0ff]">
-                  <Icon size={18} />
+                <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-start">
+                  <div>
+                    <div className="flex h-11 w-11 items-center justify-center rounded-lg border border-[#3b5788] bg-[#0f1d39] text-[#9ad0ff]">
+                      <Icon size={20} />
+                    </div>
+                    <p className="mt-5 font-['Sora'] text-xs uppercase tracking-[0.24em] text-[#9ad0ff]">{eyebrow}</p>
+                    <h3 className="mt-3 max-w-2xl font-['Sora'] text-3xl font-semibold text-white md:text-4xl">{title}</h3>
+                    <p className="mt-4 max-w-2xl text-base leading-8 text-[#c8d8f3]">{text}</p>
+                  </div>
+                  <div className="rounded-xl border border-[#2a3d63] bg-[#0d1830] p-5">
+                    <p className="font-['Sora'] text-xs uppercase tracking-[0.22em] text-[#8fd6ff]">What This Supports</p>
+                    <div className="mt-4 space-y-3">
+                      {highlights.map((item) => (
+                        <div key={item} className="rounded-lg border border-[#203250] bg-[#0a1327] px-4 py-3 text-sm leading-7 text-[#bdd0ef]">
+                          {item}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-                <h3 className="mt-4 font-['Sora'] text-xl font-semibold text-white">{title}</h3>
-                <p className="mt-3 text-sm leading-7 text-[#c4d5f2]">{text}</p>
-              </motion.article>
-            ))}
-          </div>
-        </section>
-
-        <section id="workflow" className="mx-auto mt-16 w-full max-w-7xl px-6 lg:px-8">
-          <SectionHeader
-            eyebrow="Operational Workflow"
-            title="From Sensor Input To Command Action"
-            text="A simple three-step flow for communicating your core AI vision pipeline on day one."
-          />
-
-          <div className="mt-8 grid gap-4 md:grid-cols-3">
-            {workflow.map((item, index) => (
-              <motion.div
-                key={item.step}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.5 }}
-                transition={{ delay: index * 0.09, duration: 0.4 }}
-                className="section-block rounded-xl p-5"
-              >
-                <p className="font-['Sora'] text-xs tracking-[0.2em] text-[#9ad0ff]">STEP {item.step}</p>
-                <h3 className="mt-3 font-['Sora'] text-2xl font-semibold text-white">{item.title}</h3>
-                <p className="mt-3 text-sm leading-7 text-[#c4d5f2]">{item.text}</p>
-              </motion.div>
+              </motion.section>
             ))}
           </div>
         </section>
