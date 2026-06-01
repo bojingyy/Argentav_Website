@@ -51,7 +51,7 @@ function SectionHeader({ eyebrow, title, text }) {
     <div className="max-w-3xl">
       {eyebrow ? <p className="font-['Sora'] text-xs uppercase tracking-[0.28em] text-[#9ad0ff]">{eyebrow}</p> : null}
       <h2 className="mt-3 font-['Sora'] text-3xl font-bold tracking-tight text-white md:text-5xl">{title}</h2>
-      <p className="mt-4 max-w-2xl text-base leading-7 text-[#d1def7]">{text}</p>
+      <p className="mt-4 max-w-2xl text-lg leading-8 text-[#d1def7] md:text-xl">{text}</p>
     </div>
   );
 }
@@ -84,7 +84,7 @@ export default function App() {
               <br />
               Track Targets On The Ground.
             </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-[#d6e4fb]">
+            <p className="mt-6 max-w-2xl text-xl leading-9 text-[#d6e4fb] md:text-2xl">
               Argentav Vision is a mission-ready software solution built to run on Nvidia hardware.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
@@ -105,7 +105,16 @@ export default function App() {
           </motion.div>
         </section>
 
-        <section className="mx-auto mt-8 w-full max-w-7xl px-6 lg:px-8">
+        <div className="mx-auto mt-2 w-full max-w-7xl px-6 lg:px-8" aria-hidden="true">
+          <div className="relative flex items-center justify-center py-2">
+            <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-[#78f0c2] to-transparent" />
+            <div className="absolute flex h-4 w-4 items-center justify-center rounded-full border border-[#9ad0ff] bg-[#08111f] shadow-[0_0_18px_rgba(120,240,194,0.45)]">
+              <div className="h-1.5 w-1.5 rounded-full bg-[#78f0c2]" />
+            </div>
+          </div>
+        </div>
+
+        <section className="mx-auto mt-10 w-full max-w-7xl px-6 lg:px-8">
           <SectionHeader
             title="Built For The Teams Bringing Vision Systems Into The Field"
             text="Whether you are building drones, strengthening ground defense systems, or deploying civilian monitoring solutions, Argentav Vision delivers software designed for fast detection, dependable performance, and real-world operations."
@@ -129,13 +138,13 @@ export default function App() {
                     </div>
                     <p className="mt-5 font-['Sora'] text-xs uppercase tracking-[0.24em] text-[#9ad0ff]">{eyebrow}</p>
                     <h3 className="mt-3 max-w-2xl font-['Sora'] text-3xl font-semibold text-white md:text-4xl">{title}</h3>
-                    <p className="mt-4 max-w-2xl text-base leading-8 text-[#c8d8f3]">{text}</p>
+                    <p className="mt-4 max-w-2xl text-lg leading-9 text-[#c8d8f3] md:text-xl">{text}</p>
                   </div>
                   <div className="rounded-xl border border-[#2a3d63] bg-[#0d1830] p-5">
                     <p className="font-['Sora'] text-xs uppercase tracking-[0.22em] text-[#8fd6ff]">What This Supports</p>
                     <div className="mt-4 space-y-3">
                       {highlights.map((item) => (
-                        <div key={item} className="rounded-lg border border-[#203250] bg-[#0a1327] px-4 py-3 text-sm leading-7 text-[#bdd0ef]">
+                        <div key={item} className="rounded-lg border border-[#203250] bg-[#0a1327] px-4 py-3 text-base leading-8 text-[#bdd0ef] md:text-lg">
                           {item}
                         </div>
                       ))}
@@ -153,7 +162,7 @@ export default function App() {
               <div>
                 <p className="font-['Sora'] text-xs uppercase tracking-[0.22em] text-[#9ad0ff]">Contact</p>
                 <h3 className="mt-3 font-['Sora'] text-3xl font-bold text-white">Ready For System Evaluation</h3>
-                <p className="mt-3 max-w-xl text-[#c8d8f3]">
+                <p className="mt-3 max-w-xl text-lg leading-8 text-[#c8d8f3] md:text-xl">
                   Set up your first technical briefing and we will tailor detection profiles to your mission environment.
                 </p>
               </div>
@@ -166,15 +175,15 @@ export default function App() {
               </a>
             </div>
             <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              <div className="rounded-xl border border-[#2a3d63] bg-[#0d1830] p-4 text-sm text-[#bdd0ef]">
+              <div className="rounded-xl border border-[#2a3d63] bg-[#0d1830] p-4 text-base leading-8 text-[#bdd0ef] md:text-lg">
                 <Waypoints size={16} className="mb-2 text-[#8fd6ff]" />
                 Deployable for fixed sites and mobile operation centers.
               </div>
-              <div className="rounded-xl border border-[#2a3d63] bg-[#0d1830] p-4 text-sm text-[#bdd0ef]">
+              <div className="rounded-xl border border-[#2a3d63] bg-[#0d1830] p-4 text-base leading-8 text-[#bdd0ef] md:text-lg">
                 <Radar size={16} className="mb-2 text-[#8fd6ff]" />
                 Compatible with sensor fusion and distributed command pipelines.
               </div>
-              <div className="rounded-xl border border-[#2a3d63] bg-[#0d1830] p-4 text-sm text-[#bdd0ef]">
+              <div className="rounded-xl border border-[#2a3d63] bg-[#0d1830] p-4 text-base leading-8 text-[#bdd0ef] md:text-lg">
                 <Crosshair size={16} className="mb-2 text-[#8fd6ff]" />
                 Designed for persistent tracking in high-noise operating zones.
               </div>
