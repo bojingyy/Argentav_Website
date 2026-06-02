@@ -1,15 +1,16 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import {
   ArrowRight,
   Crosshair,
   Radar,
-  ShieldCheck,
   Waypoints,
 } from "lucide-react";
 
 const audienceSections = [
   {
     id: "drone-makers",
+    path: "/solutions/drone-makers",
     eyebrow: "For Drone Makers",
     title: "Add Nvidia-Powered Vision To Your Drone Platform",
     text: "Argentav Vision helps drone manufacturers integrate onboard detection, tracking, and scene understanding into aircraft that need reliable performance at the edge.",
@@ -22,6 +23,7 @@ const audienceSections = [
   },
   {
     id: "ground-defense",
+    path: "/solutions/ground-defense",
     eyebrow: "For Ground Defense Builders",
     title: "Strengthen Military Ground Defense Systems",
     text: "Argentav Vision gives system builders a software layer for persistent detection, sensor fusion workflows, and fast alerting across fixed or mobile ground defense deployments.",
@@ -34,6 +36,7 @@ const audienceSections = [
   },
   {
     id: "civilian-use",
+    path: "/solutions/civilian-use",
     eyebrow: "For Civilian Use",
     title: "Deploy Vision Software For Commercial And Public Safety Operations",
     text: "Argentav Vision also supports civilian teams that need dependable monitoring for infrastructure, site security, inspection, and emergency response scenarios.",
@@ -121,7 +124,7 @@ export default function App() {
           />
 
           <div className="mt-8 space-y-6">
-            {audienceSections.map(({ id, eyebrow, title, text, highlights, icon: Icon }, index) => (
+            {audienceSections.map(({ id, path, eyebrow, title, text, highlights, icon: Icon }, index) => (
               <motion.section
                 key={id}
                 id={id}
@@ -139,6 +142,13 @@ export default function App() {
                     <p className="mt-5 font-['Sora'] text-xs uppercase tracking-[0.24em] text-[#9ad0ff]">{eyebrow}</p>
                     <h3 className="mt-3 max-w-2xl font-['Sora'] text-3xl font-semibold text-white md:text-4xl">{title}</h3>
                     <p className="mt-4 max-w-2xl text-lg leading-9 text-[#c8d8f3] md:text-xl">{text}</p>
+                    <Link
+                      to={path}
+                      className="mt-6 inline-flex items-center gap-2 rounded-xl border border-[#6680ab] px-5 py-3 font-semibold text-[#d8e9ff] transition hover:border-[#95b8ea]"
+                    >
+                      View Details
+                      <ArrowRight size={16} />
+                    </Link>
                   </div>
                   <div className="rounded-xl border border-[#2a3d63] bg-[#0d1830] p-5">
                     <p className="font-['Sora'] text-xs uppercase tracking-[0.22em] text-[#8fd6ff]">What This Supports</p>
@@ -166,13 +176,6 @@ export default function App() {
                   Set up your first technical briefing and we will tailor detection profiles to your mission environment.
                 </p>
               </div>
-              <a
-                href="mailto:hello@argentav.ai"
-                className="inline-flex items-center gap-2 self-start rounded-xl bg-white px-5 py-3 font-semibold text-[#071124] transition hover:brightness-95"
-              >
-                Start Conversation
-                <ShieldCheck size={18} />
-              </a>
             </div>
             <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               <div className="rounded-xl border border-[#2a3d63] bg-[#0d1830] p-4 text-base leading-8 text-[#bdd0ef] md:text-lg">
