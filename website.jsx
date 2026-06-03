@@ -1,8 +1,10 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import logoImage from "./logo_v2.png";
 import {
   ArrowRight,
+  ChevronDown,
   Crosshair,
   Radar,
   Waypoints,
@@ -64,21 +66,63 @@ function SectionHeader({ eyebrow, title, text }) {
 }
 
 export default function App() {
+  const location = useLocation();
+
+  const scrollSectionToCenter = (sectionId, behavior = "smooth") => {
+    const section = document.getElementById(sectionId);
+    if (!section) return;
+
+    const rect = section.getBoundingClientRect();
+    const sectionCenter = rect.top + window.scrollY + rect.height / 2;
+    const viewportCenter = window.innerHeight / 2;
+    const top = Math.max(0, sectionCenter - viewportCenter);
+
+    window.scrollTo({ top, behavior });
+  };
+
+  useEffect(() => {
+    if (!location.hash) return;
+
+    const sectionId = location.hash.slice(1);
+    const scrollToHashTarget = () => {
+      scrollSectionToCenter(sectionId, "smooth");
+    };
+
+    const timer = window.setTimeout(scrollToHashTarget, 60);
+    return () => window.clearTimeout(timer);
+  }, [location.hash]);
+
   return (
     <div className="app-shell pb-20 text-white">
       <div className="grid-overlay" aria-hidden="true" />
 
       <header className="fixed left-1/2 top-5 z-40 w-[calc(100%-1.25rem)] max-w-7xl -translate-x-1/2 rounded-2xl border border-[#2a3d63] bg-[#081427]/90 px-4 py-3 shadow-[0_10px_30px_rgba(2,8,18,0.45)] backdrop-blur-md md:px-6">
         <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-          <div className="flex items-center gap-3">
-            <img src={logoImage} alt="Argentav Vision logo" className="h-20 w-20 object-contain md:h-20 md:w-20" />
-            <div className="font-['Sora'] text-sm font-semibold tracking-[0.2em] text-[#d8e9ff] md:text-lg">ARGENTAV VISION</div>
+          <div className="flex items-center gap-3 overflow-visible">
+            <img src={logoImage} alt="Argentav Vision logo" className="h-20 w-20 scale-110 object-contain md:h-20 md:w-20 md:scale-125" />
+            <div className="ml-1 font-['Sora'] text-sm font-semibold tracking-[0.2em] text-[#d8e9ff] md:ml-2 md:text-lg">ARGENTAV VISION</div>
           </div>
           <nav className="flex flex-wrap gap-2 text-xs text-[#b4c7ea] md:text-sm">
-            <a href="#drone-makers" className="rounded-lg border border-[#34507e] bg-[#0b1b35] px-3 py-2 transition hover:border-[#95b8ea] hover:text-white">Drone Makers</a>
-            <a href="#ground-defense" className="rounded-lg border border-[#34507e] bg-[#0b1b35] px-3 py-2 transition hover:border-[#95b8ea] hover:text-white">Ground Defense</a>
-            <a href="#civilian-use" className="rounded-lg border border-[#34507e] bg-[#0b1b35] px-3 py-2 transition hover:border-[#95b8ea] hover:text-white">Civilian Use</a>
-            <a href="#contact" className="rounded-lg border border-[#34507e] bg-[#0b1b35] px-3 py-2 transition hover:border-[#95b8ea] hover:text-white">Contact</a>
+            <div className="group relative">
+              <button
+                type="button"
+                className="flex cursor-default items-center gap-1 rounded-lg border border-[#34507e] bg-[#0b1b35] px-3 py-2 transition hover:border-[#95b8ea] hover:text-white"
+              >
+                Home
+                <ChevronDown size={14} aria-hidden="true" />
+              </button>
+              <div className="absolute left-0 top-full z-50 pt-2 opacity-0 pointer-events-none transition group-hover:opacity-100 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:pointer-events-auto">
+                <div className="min-w-[220px] rounded-xl border border-[#2a3d63] bg-[#081427]/95 p-2 shadow-[0_12px_28px_rgba(2,8,18,0.5)] backdrop-blur-md">
+                  <a href="#drone-makers" onClick={(event) => { event.preventDefault(); scrollSectionToCenter("drone-makers"); }} className="block rounded-lg px-3 py-2 text-[#d8e9ff] transition hover:bg-[#0b1b35] hover:text-white">For Drone Makers</a>
+                  <a href="#ground-defense" onClick={(event) => { event.preventDefault(); scrollSectionToCenter("ground-defense"); }} className="mt-1 block rounded-lg px-3 py-2 text-[#d8e9ff] transition hover:bg-[#0b1b35] hover:text-white">For Ground Defense Builders</a>
+                  <a href="#civilian-use" onClick={(event) => { event.preventDefault(); scrollSectionToCenter("civilian-use"); }} className="mt-1 block rounded-lg px-3 py-2 text-[#d8e9ff] transition hover:bg-[#0b1b35] hover:text-white">For Civilian Use</a>
+                  <a href="#contact" onClick={(event) => { event.preventDefault(); scrollSectionToCenter("contact"); }} className="mt-1 block rounded-lg px-3 py-2 text-[#d8e9ff] transition hover:bg-[#0b1b35] hover:text-white">Contact</a>
+                </div>
+              </div>
+            </div>
+            <Link to="/solutions/drone-makers" className="rounded-lg border border-[#34507e] bg-[#0b1b35] px-3 py-2 transition hover:border-[#95b8ea] hover:text-white">Drone Makers</Link>
+            <Link to="/solutions/ground-defense" className="rounded-lg border border-[#34507e] bg-[#0b1b35] px-3 py-2 transition hover:border-[#95b8ea] hover:text-white">Ground Defense</Link>
+            <Link to="/solutions/civilian-use" className="rounded-lg border border-[#34507e] bg-[#0b1b35] px-3 py-2 transition hover:border-[#95b8ea] hover:text-white">Civilian Use</Link>
           </nav>
         </div>
       </header>
@@ -144,12 +188,12 @@ export default function App() {
                 className="section-block rounded-2xl p-6 md:p-8"
                 style={{ background: panelGradient }}
               >
-                <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-start">
+                <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
                   <div>
                     <div className="flex h-11 w-11 items-center justify-center rounded-lg border border-[#3b5788] bg-[#0f1d39] text-[#9ad0ff]">
                       <Icon size={20} />
                     </div>
-                    <p className="mt-5 font-['Sora'] text-xs uppercase tracking-[0.24em] text-[#9ad0ff]">{eyebrow}</p>
+                    <p className="mt-5 font-['Sora'] text-sm uppercase tracking-[0.24em] text-[#9ad0ff] md:text-base">{eyebrow}</p>
                     <h3 className="mt-3 max-w-2xl font-['Sora'] text-3xl font-semibold text-white md:text-4xl">{title}</h3>
                     <p className="mt-4 max-w-2xl text-lg leading-9 text-[#c8d8f3] md:text-xl">{text}</p>
                     <Link
