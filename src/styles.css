@@ -2,17 +2,12 @@
 @import "tailwindcss";
 
 :root {
-  --ink-950: #05080f;
-  --ink-900: #0a1020;
-  --ink-800: #111b36;
-  --mist-100: #f5f9ff;
-  --steel-300: #95a9cb;
+  --ink-950: #000000;
+  --ink-900: #0f172a;
   --line: rgba(15, 23, 42, 0.1);
-  --signal: #0d9488;
-  --signal-2: #0284c7;
-  --alert: #ffd36d;
+  --signal: #1e3a8a;
 
-  color: #0f172a;
+  color: #000000;
   background: #ffffff;
   font-family: "Space Grotesk", "Segoe UI", sans-serif;
 }
@@ -26,11 +21,12 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100%;
-  background:
-    radial-gradient(circle at 15% 20%, rgba(13, 148, 136, 0.05), transparent 35%),
-    radial-gradient(circle at 82% 11%, rgba(2, 132, 199, 0.04), transparent 40%),
-    linear-gradient(180deg, #ffffff 0%, #f8fafc 65%);
-  color: #0f172a;
+  background: #ffffff;
+  color: #000000;
+}
+
+html {
+  scrollbar-gutter: stable;
 }
 
 body {
@@ -65,8 +61,17 @@ button {
 
 .section-block {
   border: 1px solid rgba(15, 23, 42, 0.09);
-  background: linear-gradient(160deg, rgba(248, 250, 252, 0.95), rgba(241, 245, 249, 0.9));
+  background: #ffffff;
   backdrop-filter: blur(6px);
+}
+
+.solution-card {
+  border: 1.5px solid #334155;
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.1);
+}
+
+.contact-card {
+  border: 2px solid #1e3a8a;
 }
 
 .scan-line::after {
@@ -74,7 +79,7 @@ button {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(to bottom, transparent, rgba(13, 148, 136, 0.07), transparent);
+  background: linear-gradient(to bottom, transparent, rgba(30, 58, 138, 0.07), transparent);
   transform: translateY(-100%);
   animation: sweep 4.8s linear infinite;
 }
