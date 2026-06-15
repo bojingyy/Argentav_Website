@@ -56,8 +56,8 @@ export default function TopBar({ onHomeSectionClick }) {
     <header className="sticky top-0 z-40 w-full border-b border-slate-200 bg-white/90 shadow-[0_1px_12px_rgba(15,23,42,0.06)] backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl flex-col gap-3 px-6 py-3 md:flex-row md:items-center md:justify-between lg:px-8">
         <div className="flex items-center gap-3 overflow-visible">
-          <img src={logoImage} alt="Argentav Vision logo" className="h-20 w-20 scale-110 object-contain md:h-20 md:w-20 md:scale-125" />
-          <div className="ml-1 font-['Sora'] text-lg font-semibold tracking-[0.06em] text-black md:ml-2 md:text-2xl">Argentav Vision</div>
+          <img src={logoImage} alt="Argentav logo" className="h-20 w-20 scale-110 object-contain md:h-20 md:w-20 md:scale-125" />
+          <div className="ml-1 font-['Sora'] text-lg font-semibold tracking-[0.06em] text-black md:ml-2 md:text-2xl">Argentav</div>
         </div>
         <nav className="flex flex-wrap gap-2 text-xs md:text-sm">
           <div className="group relative">

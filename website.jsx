@@ -9,14 +9,15 @@ import {
 } from "lucide-react";
 import TopBar from "./src/components/TopBar.jsx";
 import droneMakerHomepageImage from "./drone_maker_homepage.png";
+import groundDefenseHomepageImage from "./ground_defense_homepage.png";
 
 const audienceSections = [
   {
     id: "drone-makers",
     path: "/solutions/drone-makers",
     eyebrow: "For Drone Makers",
-    title: "Add NVIDIA-Powered Vision To Your Drone Platform",
-    text: "Argentav Vision helps drone manufacturers integrate onboard detection, tracking, and scene understanding into aircraft that need reliable performance at the edge.",
+    title: "Add Argentav Vision To Your Drone Platform",
+    text: "Argentav helps drone manufacturers integrate onboard detection, tracking, and scene understanding into aircraft that need reliable performance at the edge.",
     highlights: [
       "Run onboard on NVIDIA hardware for low-latency decisions.",
       "Support payload teams with vision modules ready for integration.",
@@ -31,20 +32,22 @@ const audienceSections = [
     path: "/solutions/ground-defense",
     eyebrow: "For Ground Defense Builders",
     title: "AI Vision For Ground Defense Systems",
-    text: "Argentav Vision gives system builders a software layer for persistent detection, sensor fusion workflows, and fast alerting across fixed or mobile ground defense deployments.",
+    text: "Argentav gives system builders a software layer for persistent detection, sensor fusion workflows, and fast alerting across fixed or mobile ground defense deployments.",
     highlights: [
       "Detect and classify aerial and ground threats in real time.",
       "Feed actionable outputs into defense control and monitoring systems.",
       "Scale across distributed nodes with a consistent software stack.",
     ],
     icon: Crosshair,
+    image: groundDefenseHomepageImage,
+    imageAlt: "Ground defense vision system interface",
   },
   {
     id: "civilian-use",
     path: "/solutions/civilian-use",
     eyebrow: "For Civilian Use",
     title: "AI Vision For Commercial and Public Safety Operations",
-    text: "Argentav Vision also supports civilian teams that need dependable monitoring for infrastructure, site security, inspection, and emergency response scenarios.",
+    text: "Argentav also supports civilian teams that need dependable monitoring for infrastructure, site security, inspection, and emergency response scenarios.",
     highlights: [
       "Monitor sensitive facilities and critical infrastructure more efficiently.",
       "Improve situational awareness for inspection and response teams.",
@@ -118,12 +121,10 @@ export default function App() {
             className="max-w-4xl"
           >
             <h1 className="mt-4 max-w-4xl font-['Sora'] text-5xl font-extrabold leading-[0.95] tracking-tight text-black md:text-7xl">
-              Detect Drones In The Sky.
-              <br />
-              Track Targets On The Ground.
+              Protect what matters.
             </h1>
-            <p className="mt-6 max-w-2xl text-xl leading-9 text-blue-900 md:text-2xl">
-              Argentav Vision is a mission-ready software solution built to run on NVIDIA hardware.
+            <p className="mt-6 max-w-3xl font-['Sora'] text-3xl font-bold leading-tight text-blue-900 md:text-5xl">
+              Affordable AI vision software for drone detection and ground tracking.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <a
@@ -148,7 +149,7 @@ export default function App() {
         <section className="mx-auto mt-10 w-full max-w-7xl px-6 lg:px-8">
           <SectionHeader
             title="Built For The Teams Bringing Vision Systems Into The Field"
-            text="Whether you are building drones, strengthening ground defense systems, or deploying civilian monitoring solutions, Argentav Vision delivers software designed for fast detection, dependable performance, and real-world operations."
+            text="Whether you are building drones, strengthening ground defense systems, or deploying civilian monitoring solutions, Argentav delivers software designed for fast detection, dependable performance, and real-world operations."
           />
 
           <div className="mt-8 space-y-6">
@@ -162,8 +163,8 @@ export default function App() {
                 transition={{ delay: index * 0.08, duration: 0.45 }}
                 className="section-block solution-card rounded-2xl p-6 md:p-8"
               >
-                <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
-                  <div>
+                <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+                  <div className={image ? "lg:pr-12" : undefined}>
                     <div className="flex items-center gap-3">
                       <div className="flex h-11 w-11 items-center justify-center rounded-lg border border-blue-100 bg-blue-50 text-blue-900">
                         <Icon size={20} />
@@ -180,11 +181,11 @@ export default function App() {
                       <ArrowRight size={16} />
                     </Link>
                   </div>
-                  <div className="flex items-center justify-center overflow-hidden rounded-xl text-center">
+                  <div className="flex items-center justify-center rounded-xl text-center">
                     {image ? (
-                      <img src={image} alt={imageAlt} className="w-full rounded-xl border border-slate-300 lg:w-[112%] lg:max-w-none lg:-translate-x-4" />
+                      <img src={image} alt={imageAlt} className="w-full rounded-xl border border-slate-300 object-contain lg:w-[110%] lg:max-w-none lg:-translate-x-6" />
                     ) : (
-                      <div className="flex min-h-[340px] w-full items-center justify-center rounded-xl border border-slate-300 bg-white px-4">
+                      <div className="flex aspect-[1535/1024] w-full items-center justify-center rounded-xl border border-slate-300 bg-white px-4 lg:w-[110%] lg:max-w-none lg:-translate-x-6">
                         <p className="font-['Sora'] text-sm uppercase tracking-[0.16em] text-slate-400 md:text-base">
                           Image Placeholder
                         </p>
