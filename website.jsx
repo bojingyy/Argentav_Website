@@ -10,6 +10,7 @@ import {
 import TopBar from "./src/components/TopBar.jsx";
 import droneMakerHomepageImage from "./drone_maker_homepage.png";
 import groundDefenseHomepageImage from "./ground_defense_homepage.png";
+import civilianUseHomepageImage from "./civilian_use_homepage.png";
 
 const audienceSections = [
   {
@@ -54,6 +55,8 @@ const audienceSections = [
       "Use one software platform across evolving operational environments.",
     ],
     icon: Waypoints,
+    image: civilianUseHomepageImage,
+    imageAlt: "Civilian monitoring vision system interface",
   },
 ];
 
@@ -124,7 +127,7 @@ export default function App() {
               Protect what matters.
             </h1>
             <p className="mt-6 max-w-3xl font-['Sora'] text-3xl font-bold leading-tight text-blue-900 md:text-5xl">
-              Affordable AI vision software for drone detection and ground tracking.
+              Affordable AI vision software for drone detection and object tracking.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <a
