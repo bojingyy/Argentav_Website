@@ -63,9 +63,9 @@ const audienceSections = [
 function SectionHeader({ eyebrow, title, text }) {
   return (
     <div className="max-w-5xl">
-      {eyebrow ? <p className="font-['Sora'] text-xs uppercase tracking-[0.28em] text-blue-900">{eyebrow}</p> : null}
-      <h2 className="mt-3 font-['Sora'] text-3xl font-bold tracking-tight text-black md:text-5xl">{title}</h2>
-      <p className="mt-4 max-w-5xl text-lg leading-8 text-blue-900 md:text-xl">{text}</p>
+      {eyebrow ? <p className="font-['Sora'] text-xs uppercase tracking-[0.28em] text-blue-200">{eyebrow}</p> : null}
+      <h2 className="mt-3 font-['Sora'] text-3xl font-bold tracking-tight text-white md:text-5xl">{title}</h2>
+      <p className="mt-4 max-w-5xl text-lg leading-8 text-blue-100 md:text-xl">{text}</p>
     </div>
   );
 }
@@ -74,9 +74,9 @@ function SectionDivider() {
   return (
     <div className="mx-auto w-full max-w-7xl px-6 lg:px-8" aria-hidden="true">
       <div className="flex items-center gap-4 py-4">
-        <div className="h-px flex-1 bg-slate-300" />
-        <div className="h-[3px] w-24 rounded-full bg-slate-700" />
-        <div className="h-px flex-1 bg-slate-300" />
+        <div className="h-px flex-1 bg-slate-700" />
+        <div className="h-[3px] w-24 rounded-full bg-blue-200" />
+        <div className="h-px flex-1 bg-slate-700" />
       </div>
     </div>
   );
@@ -110,7 +110,7 @@ export default function App() {
   }, [location.hash]);
 
   return (
-    <div className="app-shell pb-20 text-black">
+    <div className="app-shell pb-20 text-white">
       <div className="grid-overlay" aria-hidden="true" />
 
       <TopBar onHomeSectionClick={scrollSectionToCenter} />
@@ -123,10 +123,10 @@ export default function App() {
             transition={{ duration: 0.7 }}
             className="max-w-4xl"
           >
-            <h1 className="mt-4 max-w-4xl font-['Sora'] text-5xl font-extrabold leading-[0.95] tracking-tight text-black md:text-7xl">
+            <h1 className="mt-4 max-w-4xl font-['Sora'] text-5xl font-extrabold leading-[0.95] tracking-tight text-white md:text-7xl">
               Protect what matters.
             </h1>
-            <p className="mt-6 max-w-3xl font-['Sora'] text-3xl font-bold leading-tight text-blue-900 md:text-5xl">
+            <p className="mt-6 max-w-3xl font-['Sora'] text-3xl font-bold leading-tight text-blue-100 md:text-5xl">
               Affordable AI vision software for drone detection and object tracking.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
@@ -139,7 +139,7 @@ export default function App() {
               </a>
               <a
                 href="#drone-makers"
-                className="inline-flex items-center rounded-xl border border-slate-300 px-5 py-3 font-semibold text-blue-900 transition hover:border-blue-900"
+                className="inline-flex items-center rounded-xl border border-slate-500 px-5 py-3 font-semibold text-slate-100 transition hover:border-blue-300 hover:text-white"
               >
                 Explore Solutions
               </a>
@@ -169,13 +169,13 @@ export default function App() {
                 <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
                   <div className={image ? "lg:pr-12" : undefined}>
                     <div className="flex items-center gap-3">
-                      <div className="flex h-11 w-11 items-center justify-center rounded-lg border border-blue-100 bg-blue-50 text-blue-900">
+                      <div className="flex h-11 w-11 items-center justify-center rounded-lg border border-blue-300/50 bg-blue-400/10 text-blue-100">
                         <Icon size={20} />
                       </div>
-                      <p className="font-['Sora'] text-sm uppercase tracking-[0.24em] text-blue-900 md:text-base">{eyebrow}</p>
+                      <p className="font-['Sora'] text-sm uppercase tracking-[0.24em] text-blue-200 md:text-base">{eyebrow}</p>
                     </div>
-                    <h3 className="mt-3 max-w-2xl font-['Sora'] text-3xl font-semibold text-black md:text-4xl">{title}</h3>
-                    <p className="mt-4 max-w-2xl text-lg leading-9 text-slate-700 md:text-xl">{text}</p>
+                    <h3 className="mt-3 max-w-2xl font-['Sora'] text-3xl font-semibold text-white md:text-4xl">{title}</h3>
+                    <p className="mt-4 max-w-2xl text-lg leading-9 text-blue-100 md:text-xl">{text}</p>
                     <Link
                       to={path}
                       className="mt-6 inline-flex items-center gap-2 rounded-xl bg-blue-900 px-5 py-3 font-semibold text-white transition hover:translate-y-[-1px] hover:bg-blue-800"
@@ -186,10 +186,10 @@ export default function App() {
                   </div>
                   <div className="flex items-center justify-center rounded-xl text-center">
                     {image ? (
-                      <img src={image} alt={imageAlt} className="w-full rounded-xl border border-slate-300 object-contain lg:w-[110%] lg:max-w-none lg:-translate-x-6" />
+                      <img src={image} alt={imageAlt} className="w-full rounded-xl border border-slate-600 object-contain lg:w-[110%] lg:max-w-none lg:-translate-x-6" />
                     ) : (
-                      <div className="flex aspect-[1535/1024] w-full items-center justify-center rounded-xl border border-slate-300 bg-white px-4 lg:w-[110%] lg:max-w-none lg:-translate-x-6">
-                        <p className="font-['Sora'] text-sm uppercase tracking-[0.16em] text-slate-400 md:text-base">
+                      <div className="flex aspect-[1535/1024] w-full items-center justify-center rounded-xl border border-slate-600 bg-slate-950 px-4 lg:w-[110%] lg:max-w-none lg:-translate-x-6">
+                        <p className="font-['Sora'] text-sm uppercase tracking-[0.16em] text-slate-300 md:text-base">
                           Image Placeholder
                         </p>
                       </div>
@@ -209,24 +209,24 @@ export default function App() {
           <div className="section-block solution-card contact-card rounded-2xl p-7 md:p-10">
             <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
               <div>
-                <p className="font-['Sora'] text-xs uppercase tracking-[0.22em] text-blue-900">Contact</p>
-                <h3 className="mt-3 font-['Sora'] text-3xl font-bold text-black">Ready For System Evaluation</h3>
-                <p className="mt-3 max-w-xl text-lg leading-8 text-blue-900 md:text-xl">
+                <p className="font-['Sora'] text-xs uppercase tracking-[0.22em] text-blue-200">Contact</p>
+                <h3 className="mt-3 font-['Sora'] text-3xl font-bold text-white">Ready For System Evaluation</h3>
+                <p className="mt-3 max-w-xl text-lg leading-8 text-blue-100 md:text-xl">
                   Set up your first technical briefing and we will tailor detection profiles to your mission environment.
                 </p>
               </div>
             </div>
             <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              <div className="rounded-xl border border-slate-200 bg-white p-4 text-base leading-8 text-slate-700 shadow-[0_8px_20px_rgba(15,23,42,0.08)] md:text-lg">
-                <Waypoints size={16} className="mb-2 text-slate-700" />
+              <div className="rounded-xl border border-slate-700 bg-slate-950 p-4 text-base leading-8 text-slate-200 shadow-[0_8px_20px_rgba(0,0,0,0.35)] md:text-lg">
+                <Waypoints size={16} className="mb-2 text-blue-200" />
                 Deployable for fixed sites and mobile operation centers.
               </div>
-              <div className="rounded-xl border border-slate-200 bg-white p-4 text-base leading-8 text-slate-700 shadow-[0_8px_20px_rgba(15,23,42,0.08)] md:text-lg">
-                <Radar size={16} className="mb-2 text-slate-700" />
+              <div className="rounded-xl border border-slate-700 bg-slate-950 p-4 text-base leading-8 text-slate-200 shadow-[0_8px_20px_rgba(0,0,0,0.35)] md:text-lg">
+                <Radar size={16} className="mb-2 text-blue-200" />
                 Compatible with sensor fusion and distributed command pipelines.
               </div>
-              <div className="rounded-xl border border-slate-200 bg-white p-4 text-base leading-8 text-slate-700 shadow-[0_8px_20px_rgba(15,23,42,0.08)] md:text-lg">
-                <Crosshair size={16} className="mb-2 text-slate-700" />
+              <div className="rounded-xl border border-slate-700 bg-slate-950 p-4 text-base leading-8 text-slate-200 shadow-[0_8px_20px_rgba(0,0,0,0.35)] md:text-lg">
+                <Crosshair size={16} className="mb-2 text-blue-200" />
                 Designed for persistent tracking in high-noise operating zones.
               </div>
             </div>
