@@ -3,6 +3,7 @@ import { ChevronDown } from "lucide-react";
 import logoImage from "../../logo_v2.png";
 
 const homeLinks = [
+  { id: "vexa", label: "Vexa" },
   { id: "drone-makers", label: "For Drone Makers" },
   { id: "ground-defense", label: "For Ground Defense Builders" },
   { id: "civilian-use", label: "For Civilian Use" },
@@ -14,6 +15,8 @@ const solutionLinks = [
   { path: "/solutions/ground-defense", label: "Ground Defense" },
   { path: "/solutions/civilian-use", label: "Civilian Use" },
 ];
+
+const vexaLink = { path: "/vexa", label: "Vexa" };
 
 export default function TopBar({ onHomeSectionClick }) {
   const navigate = useNavigate();
@@ -75,6 +78,12 @@ export default function TopBar({ onHomeSectionClick }) {
               </div>
             </div>
           </div>
+          <Link
+            to={vexaLink.path}
+            className="rounded-xl bg-blue-900 px-4 py-2 font-semibold text-white transition hover:translate-y-[-1px] hover:bg-blue-800"
+          >
+            {vexaLink.label}
+          </Link>
           {solutionLinks.map(({ path, label }) => (
             <Link key={path} to={path} className="rounded-xl bg-blue-900 px-4 py-2 font-semibold text-white transition hover:translate-y-[-1px] hover:bg-blue-800">
               {label}

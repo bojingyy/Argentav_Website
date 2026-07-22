@@ -3,6 +3,7 @@ import HomePage from "../website.jsx";
 import CivilianUsePage from "./pages/CivilianUsePage.jsx";
 import DroneMakersPage from "./pages/DroneMakersPage.jsx";
 import GroundDefensePage from "./pages/GroundDefensePage.jsx";
+import VexaPage from "./pages/VexaPage.jsx";
 
 export default function App() {
   return (
@@ -11,6 +12,7 @@ export default function App() {
       <Route path="/solutions/drone-makers" element={<DroneMakersPage />} />
       <Route path="/solutions/ground-defense" element={<GroundDefensePage />} />
       <Route path="/solutions/civilian-use" element={<CivilianUsePage />} />
+      <Route path="/vexa" element={<VexaPage />} />
     </Routes>
   );
 }

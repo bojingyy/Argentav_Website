@@ -1,13 +1,18 @@
 import { motion } from "framer-motion";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
   ArrowRight,
+  BellRing,
+  Cable,
   Crosshair,
+  Network,
+  PlugZap,
   Radar,
   Waypoints,
 } from "lucide-react";
 import TopBar from "./src/components/TopBar.jsx";
+import titleBackgroundImage from "./title_background.png";
 import droneMakerHomepageImage from "./drone_maker_homepage.png";
 import groundDefenseHomepageImage from "./ground_defense_homepage.png";
 import civilianUseHomepageImage from "./civilian_use_homepage.png";
@@ -60,6 +65,34 @@ const audienceSections = [
   },
 ];
 
+const vexaModels = [
+  { id: "vexa", label: "Vexa", previewLabel: "Vexa Unit" },
+  { id: "vexa-plus", label: "Vexa Plus", previewLabel: "Vexa Plus Hub" },
+];
+
+const vexaHighlights = [
+  {
+    icon: Cable,
+    title: "Zero Integration Friction",
+    text: "Installs inline between your camera and video infrastructure — the feed never stops.",
+  },
+  {
+    icon: BellRing,
+    title: "Alerts That Match Your Setup",
+    text: "Delivers events via push, MQTT/webhook, relay, SMS, or ONVIF into your existing VMS.",
+  },
+  {
+    icon: Network,
+    title: "Vexa Plus For Multi-Unit Sites",
+    text: "A hub aggregates events from multiple units and drives your existing sirens or strobes.",
+  },
+  {
+    icon: PlugZap,
+    title: "Built For Field Deployment",
+    text: "Ruggedized, passively cooled, and configured from any browser on the network.",
+  },
+];
+
 function SectionHeader({ eyebrow, title, text }) {
   return (
     <div className="max-w-5xl">
@@ -84,6 +117,8 @@ function SectionDivider() {
 
 export default function App() {
   const location = useLocation();
+  const [activeVexaModel, setActiveVexaModel] = useState(vexaModels[0].id);
+  const activeVexaPreviewLabel = vexaModels.find((model) => model.id === activeVexaModel)?.previewLabel;
 
   const scrollSectionToCenter = (sectionId, behavior = "smooth") => {
     const section = document.getElementById(sectionId);
@@ -116,38 +151,132 @@ export default function App() {
       <TopBar onHomeSectionClick={scrollSectionToCenter} />
 
       <main>
-        <section className="mx-auto w-full max-w-7xl px-6 pb-10 pt-6 lg:px-8">
+        <section className="relative overflow-hidden">
+          <div className="absolute inset-0 z-[-1]">
+            <img
+              src={titleBackgroundImage}
+              alt=""
+              aria-hidden="true"
+              className="h-full w-full object-cover object-center"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/45 to-black/10" />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/60" />
+          </div>
+
+          <div className="mx-auto w-full max-w-7xl px-6 pb-20 pt-16 lg:px-8 lg:pb-28 lg:pt-24">
+            <motion.div
+              initial={{ opacity: 0, y: 22 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7 }}
+              className="max-w-4xl"
+            >
+              <h1 className="mt-4 max-w-4xl font-['Sora'] text-5xl font-extrabold leading-[0.95] tracking-tight text-white md:text-7xl">
+                Protect what matters.
+              </h1>
+              <p className="mt-6 max-w-3xl font-['Sora'] text-3xl font-bold leading-tight text-blue-100 md:text-5xl">
+                Affordable AI vision software for drone detection and object tracking.
+              </p>
+              <div className="mt-8 flex flex-wrap gap-4">
+                <a
+                  href="#contact"
+                  className="inline-flex items-center gap-2 rounded-xl bg-blue-900 px-5 py-3 font-semibold text-white transition hover:translate-y-[-1px] hover:bg-blue-800"
+                >
+                  Contact Us
+                  <ArrowRight size={18} />
+                </a>
+                <a
+                  href="#drone-makers"
+                  className="inline-flex items-center rounded-xl border border-slate-500 px-5 py-3 font-semibold text-slate-100 transition hover:border-blue-300 hover:text-white"
+                >
+                  Explore Solutions
+                </a>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        <SectionDivider />
+
+        <section id="vexa" className="mx-auto mt-10 w-full max-w-7xl px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 22 }}
-            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.7 }}
-            className="max-w-4xl"
+            className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center"
           >
-            <h1 className="mt-4 max-w-4xl font-['Sora'] text-5xl font-extrabold leading-[0.95] tracking-tight text-white md:text-7xl">
-              Protect what matters.
-            </h1>
-            <p className="mt-6 max-w-3xl font-['Sora'] text-3xl font-bold leading-tight text-blue-100 md:text-5xl">
-              Affordable AI vision software for drone detection and object tracking.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-4">
-              <a
-                href="#contact"
-                className="inline-flex items-center gap-2 rounded-xl bg-blue-900 px-5 py-3 font-semibold text-white transition hover:translate-y-[-1px] hover:bg-blue-800"
+            <div>
+              <h2 className="font-['Sora'] text-7xl font-extrabold leading-[0.9] tracking-tight text-white md:text-8xl">
+                Vexa
+              </h2>
+              <p className="mt-4 font-['Sora'] text-xl font-semibold text-blue-100 md:text-2xl">
+                Inline Drone Detection Unit
+              </p>
+              <p className="mt-3 max-w-xl text-sm leading-6 text-blue-100 md:text-base">
+                Vexa installs between an existing camera and its video infrastructure, turning any H.265-compatible
+                camera into a drone detection sensor without ripping out hardware or rewriting software.
+              </p>
+
+              <div className="mt-8 space-y-4">
+                {vexaHighlights.map(({ icon: Icon, title, text }) => (
+                  <div
+                    key={title}
+                    className="flex items-start gap-4 rounded-2xl border border-slate-700 bg-slate-950/60 p-4 md:p-5"
+                  >
+                    <div className="flex h-11 w-11 flex-none items-center justify-center rounded-full border border-blue-300/50 bg-blue-400/10 text-blue-100">
+                      <Icon size={20} />
+                    </div>
+                    <div>
+                      <h3 className="font-['Sora'] text-lg font-semibold text-white">{title}</h3>
+                      <p className="mt-1 text-sm leading-6 text-blue-100 md:text-base">{text}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <div className="overflow-hidden rounded-2xl border border-slate-700 bg-slate-950">
+                <div className="flex items-center gap-2 border-b border-slate-800 p-3">
+                  {vexaModels.map(({ id, label }) => (
+                    <button
+                      key={id}
+                      type="button"
+                      onClick={() => setActiveVexaModel(id)}
+                      className={`rounded-lg px-3 py-1.5 text-sm font-semibold transition ${
+                        activeVexaModel === id
+                          ? "bg-white text-slate-950"
+                          : "border border-slate-600 text-slate-200 hover:border-blue-300 hover:text-white"
+                      }`}
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
+                <div className="flex aspect-[4/3] items-center justify-center bg-slate-900">
+                  <p className="font-['Sora'] text-sm uppercase tracking-[0.16em] text-slate-400 md:text-base">
+                    Image Placeholder
+                  </p>
+                </div>
+                <div className="flex items-center justify-between border-t border-slate-800 p-3 text-xs uppercase tracking-[0.16em] text-slate-400">
+                  <span>{activeVexaPreviewLabel}</span>
+                  <span>Static Preview</span>
+                </div>
+              </div>
+              <Link
+                to="/vexa"
+                className="mt-4 inline-flex items-center gap-2 rounded-xl bg-blue-900 px-5 py-3 font-semibold text-white transition hover:translate-y-[-1px] hover:bg-blue-800"
               >
-                Contact Us
-                <ArrowRight size={18} />
-              </a>
-              <a
-                href="#drone-makers"
-                className="inline-flex items-center rounded-xl border border-slate-500 px-5 py-3 font-semibold text-slate-100 transition hover:border-blue-300 hover:text-white"
-              >
-                Explore Solutions
-              </a>
+                Learn More
+                <ArrowRight size={16} />
+              </Link>
             </div>
           </motion.div>
         </section>
 
-        <SectionDivider />
+        <div className="mt-10">
+          <SectionDivider />
+        </div>
 
         <section className="mx-auto mt-10 w-full max-w-7xl px-6 lg:px-8">
           <SectionHeader
@@ -156,48 +285,63 @@ export default function App() {
           />
 
           <div className="mt-8 space-y-6">
-            {audienceSections.map(({ id, path, eyebrow, title, text, icon: Icon, image, imageAlt }, index) => (
-              <motion.section
-                key={id}
-                id={id}
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.4 }}
-                transition={{ delay: index * 0.08, duration: 0.45 }}
-                className="section-block solution-card rounded-2xl p-6 md:p-8"
-              >
-                <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-                  <div className={image ? "lg:pr-12" : undefined}>
-                    <div className="flex items-center gap-3">
-                      <div className="flex h-11 w-11 items-center justify-center rounded-lg border border-blue-300/50 bg-blue-400/10 text-blue-100">
-                        <Icon size={20} />
-                      </div>
-                      <p className="font-['Sora'] text-sm uppercase tracking-[0.24em] text-blue-200 md:text-base">{eyebrow}</p>
-                    </div>
-                    <h3 className="mt-3 max-w-2xl font-['Sora'] text-3xl font-semibold text-white md:text-4xl">{title}</h3>
-                    <p className="mt-4 max-w-2xl text-lg leading-9 text-blue-100 md:text-xl">{text}</p>
-                    <Link
-                      to={path}
-                      className="mt-6 inline-flex items-center gap-2 rounded-xl bg-blue-900 px-5 py-3 font-semibold text-white transition hover:translate-y-[-1px] hover:bg-blue-800"
+            {audienceSections.map(({ id, path, eyebrow, title, text, icon: Icon, image, imageAlt }, index) => {
+              const isReversed = id === "ground-defense";
+              const imageTranslateClass = isReversed ? "lg:translate-x-6" : "lg:-translate-x-6";
+
+              return (
+                <motion.section
+                  key={id}
+                  id={id}
+                  initial={{ opacity: 0, y: 18 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.4 }}
+                  transition={{ delay: index * 0.08, duration: 0.45 }}
+                  className="section-block solution-card rounded-2xl p-6 md:p-8"
+                >
+                  <div
+                    className={`grid gap-8 lg:items-center ${isReversed ? "lg:grid-cols-[0.9fr_1.1fr]" : "lg:grid-cols-[1.1fr_0.9fr]"}`}
+                  >
+                    <div
+                      className={`${isReversed ? "lg:order-2" : ""} ${image ? (isReversed ? "lg:pl-12" : "lg:pr-12") : ""}`}
                     >
-                      View Details
-                      <ArrowRight size={16} />
-                    </Link>
-                  </div>
-                  <div className="flex items-center justify-center rounded-xl text-center">
-                    {image ? (
-                      <img src={image} alt={imageAlt} className="w-full rounded-xl border border-slate-600 object-contain lg:w-[110%] lg:max-w-none lg:-translate-x-6" />
-                    ) : (
-                      <div className="flex aspect-[1535/1024] w-full items-center justify-center rounded-xl border border-slate-600 bg-slate-950 px-4 lg:w-[110%] lg:max-w-none lg:-translate-x-6">
-                        <p className="font-['Sora'] text-sm uppercase tracking-[0.16em] text-slate-300 md:text-base">
-                          Image Placeholder
-                        </p>
+                      <div className="flex items-center gap-3">
+                        <div className="flex h-11 w-11 items-center justify-center rounded-lg border border-blue-300/50 bg-blue-400/10 text-blue-100">
+                          <Icon size={20} />
+                        </div>
+                        <p className="font-['Sora'] text-sm uppercase tracking-[0.24em] text-blue-200 md:text-base">{eyebrow}</p>
                       </div>
-                    )}
+                      <h3 className="mt-3 max-w-2xl font-['Sora'] text-3xl font-semibold text-white md:text-4xl">{title}</h3>
+                      <p className="mt-4 max-w-2xl text-lg leading-9 text-blue-100 md:text-xl">{text}</p>
+                      <Link
+                        to={path}
+                        className="mt-6 inline-flex items-center gap-2 rounded-xl bg-blue-900 px-5 py-3 font-semibold text-white transition hover:translate-y-[-1px] hover:bg-blue-800"
+                      >
+                        View Details
+                        <ArrowRight size={16} />
+                      </Link>
+                    </div>
+                    <div className={`flex items-center justify-center rounded-xl text-center ${isReversed ? "lg:order-1" : ""}`}>
+                      {image ? (
+                        <img
+                          src={image}
+                          alt={imageAlt}
+                          className={`w-full rounded-xl border border-slate-600 object-contain lg:w-[110%] lg:max-w-none ${imageTranslateClass}`}
+                        />
+                      ) : (
+                        <div
+                          className={`flex aspect-[1535/1024] w-full items-center justify-center rounded-xl border border-slate-600 bg-slate-950 px-4 lg:w-[110%] lg:max-w-none ${imageTranslateClass}`}
+                        >
+                          <p className="font-['Sora'] text-sm uppercase tracking-[0.16em] text-slate-300 md:text-base">
+                            Image Placeholder
+                          </p>
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </div>
-              </motion.section>
-            ))}
+                </motion.section>
+              );
+            })}
           </div>
         </section>
 
