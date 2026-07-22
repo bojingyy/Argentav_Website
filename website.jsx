@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import TopBar from "./src/components/TopBar.jsx";
 import titleBackgroundImage from "./title_background.png";
+import vexaImage from "./vexa.png";
 import droneMakerHomepageImage from "./drone_maker_homepage.png";
 import groundDefenseHomepageImage from "./ground_defense_homepage.png";
 import civilianUseHomepageImage from "./civilian_use_homepage.png";
@@ -66,8 +67,8 @@ const audienceSections = [
 ];
 
 const vexaModels = [
-  { id: "vexa", label: "Vexa", previewLabel: "Vexa Unit" },
-  { id: "vexa-plus", label: "Vexa Plus", previewLabel: "Vexa Plus Hub" },
+  { id: "vexa", label: "Vexa", previewLabel: "Vexa Unit", image: vexaImage, imageAlt: "Vexa drone detection unit" },
+  { id: "vexa-plus", label: "Vexa Plus", previewLabel: "Vexa Plus Hub", image: null, imageAlt: "Vexa Plus hub" },
 ];
 
 const vexaHighlights = [
@@ -118,7 +119,8 @@ function SectionDivider() {
 export default function App() {
   const location = useLocation();
   const [activeVexaModel, setActiveVexaModel] = useState(vexaModels[0].id);
-  const activeVexaPreviewLabel = vexaModels.find((model) => model.id === activeVexaModel)?.previewLabel;
+  const activeVexaModelData = vexaModels.find((model) => model.id === activeVexaModel);
+  const activeVexaPreviewLabel = activeVexaModelData?.previewLabel;
 
   const scrollSectionToCenter = (sectionId, behavior = "smooth") => {
     const section = document.getElementById(sectionId);
@@ -254,9 +256,17 @@ export default function App() {
                   ))}
                 </div>
                 <div className="flex aspect-[4/3] items-center justify-center bg-slate-900">
-                  <p className="font-['Sora'] text-sm uppercase tracking-[0.16em] text-slate-400 md:text-base">
-                    Image Placeholder
-                  </p>
+                  {activeVexaModelData?.image ? (
+                    <img
+                      src={activeVexaModelData.image}
+                      alt={activeVexaModelData.imageAlt}
+                      className="h-full w-full object-cover"
+                    />
+                  ) : (
+                    <p className="font-['Sora'] text-sm uppercase tracking-[0.16em] text-slate-400 md:text-base">
+                      Image Placeholder
+                    </p>
+                  )}
                 </div>
                 <div className="flex items-center justify-between border-t border-slate-800 p-3 text-xs uppercase tracking-[0.16em] text-slate-400">
                   <span>{activeVexaPreviewLabel}</span>
