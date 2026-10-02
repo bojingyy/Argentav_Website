@@ -1,84 +1,111 @@
 import { motion } from "framer-motion";
 import { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import {
-  ArrowRight,
-  Crosshair,
-  Radar,
-  Waypoints,
-} from "lucide-react";
-import TopBar from "./src/components/TopBar.jsx";
-import droneMakerHomepageImage from "./drone_maker_homepage.png";
-import groundDefenseHomepageImage from "./ground_defense_homepage.png";
-import civilianUseHomepageImage from "./civilian_use_homepage.png";
+import { ArrowRight, Broadcast, Crosshair, Drone, Factory, ShareNetwork, Truck } from "@phosphor-icons/react";
+import SiteLayout from "./src/components/SiteLayout.jsx";
+import { ease, primaryButton, reveal, secondaryButton } from "./src/components/ui.jsx";
+import droneMakerHomepageImage from "./src/assets/drone_maker_homepage.jpg";
+import groundDefenseHomepageImage from "./src/assets/ground_defense_homepage.jpg";
+import civilianUseHomepageImage from "./src/assets/civilian_use_homepage.jpg";
 
 const audienceSections = [
   {
     id: "drone-makers",
     path: "/solutions/drone-makers",
-    eyebrow: "For Drone Makers",
-    title: "Add Argentav Vision To Your Drone Platform",
+    label: "For drone makers",
+    title: "Add Argentav vision to your drone platform",
     text: "Argentav helps drone manufacturers integrate onboard detection, tracking, and scene understanding into aircraft that need reliable performance at the edge.",
     highlights: [
       "Run onboard on NVIDIA hardware for low-latency decisions.",
       "Support payload teams with vision modules ready for integration.",
       "Reduce development time for tracking and classification features.",
     ],
-    icon: Radar,
+    icon: Drone,
     image: droneMakerHomepageImage,
-    imageAlt: "Drone vision system interface for drone makers",
+    imageAlt: "Fixed-wing aircraft tracking three drones over a mountain valley, each marked as detected",
   },
   {
     id: "ground-defense",
     path: "/solutions/ground-defense",
-    eyebrow: "For Ground Defense Builders",
-    title: "AI Vision For Ground Defense Systems",
+    label: "For ground defense builders",
+    title: "AI vision for ground defense systems",
     text: "Argentav gives system builders a software layer for persistent detection, sensor fusion workflows, and fast alerting across fixed or mobile ground defense deployments.",
     highlights: [
       "Detect and classify aerial and ground threats in real time.",
       "Feed actionable outputs into defense control and monitoring systems.",
       "Scale across distributed nodes with a consistent software stack.",
     ],
-    icon: Crosshair,
+    icon: Broadcast,
     image: groundDefenseHomepageImage,
-    imageAlt: "Ground defense vision system interface",
+    imageAlt: "Fortified ground site at dusk with rooftop sensors tracking four approaching drones",
   },
   {
     id: "civilian-use",
     path: "/solutions/civilian-use",
-    eyebrow: "For Civilian Use",
-    title: "AI Vision For Commercial and Public Safety Operations",
+    label: "For civilian use",
+    title: "AI vision for commercial and public safety operations",
     text: "Argentav also supports civilian teams that need dependable monitoring for infrastructure, site security, inspection, and emergency response scenarios.",
     highlights: [
       "Monitor sensitive facilities and critical infrastructure more efficiently.",
       "Improve situational awareness for inspection and response teams.",
       "Use one software platform across evolving operational environments.",
     ],
-    icon: Waypoints,
+    icon: Factory,
     image: civilianUseHomepageImage,
-    imageAlt: "Civilian monitoring vision system interface",
+    imageAlt: "Security camera connected to an edge computer running Argentav, overlooking a power plant",
   },
 ];
 
-function SectionHeader({ eyebrow, title, text }) {
+const capabilities = [
+  { icon: Truck, text: "Deployable for fixed sites and mobile operation centers." },
+  { icon: ShareNetwork, text: "Compatible with sensor fusion and distributed command pipelines." },
+  { icon: Crosshair, text: "Designed for persistent tracking in high-noise operating zones." },
+];
+
+const heroStagger = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
+};
+
+const heroItem = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease } },
+};
+
+function AudienceLabel({ icon: Icon, children }) {
   return (
-    <div className="max-w-5xl">
-      {eyebrow ? <p className="font-['Sora'] text-xs uppercase tracking-[0.28em] text-blue-200">{eyebrow}</p> : null}
-      <h2 className="mt-3 font-['Sora'] text-3xl font-bold tracking-tight text-white md:text-5xl">{title}</h2>
-      <p className="mt-4 max-w-5xl text-lg leading-8 text-blue-100 md:text-xl">{text}</p>
-    </div>
+    <p className="flex items-center gap-2 text-sm font-medium text-signal">
+      <Icon size={18} weight="duotone" aria-hidden="true" />
+      {children}
+    </p>
   );
 }
 
-function SectionDivider() {
+function DetailsLink({ to, title }) {
   return (
-    <div className="mx-auto w-full max-w-7xl px-6 lg:px-8" aria-hidden="true">
-      <div className="flex items-center gap-4 py-4">
-        <div className="h-px flex-1 bg-slate-700" />
-        <div className="h-[3px] w-24 rounded-full bg-blue-200" />
-        <div className="h-px flex-1 bg-slate-700" />
-      </div>
-    </div>
+    <Link
+      to={to}
+      aria-label={`View details: ${title}`}
+      className="group/link mt-6 inline-flex items-center gap-2 text-sm font-semibold text-fg transition-colors hover:text-signal"
+    >
+      View details
+      <ArrowRight size={16} className="transition-transform group-hover/link:translate-x-1" />
+    </Link>
+  );
+}
+
+function AudienceImage({ to, src, alt, className = "" }) {
+  return (
+    <Link to={to} tabIndex={-1} aria-hidden="true" className={`group/img block overflow-hidden bg-ink-raised ${className}`}>
+      <img
+        src={src}
+        alt={alt}
+        width="1536"
+        height="1024"
+        loading="lazy"
+        className="aspect-[3/2] w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/img:scale-[1.03]"
+      />
+    </Link>
   );
 }
 
@@ -109,130 +136,119 @@ export default function App() {
     return () => window.clearTimeout(timer);
   }, [location.hash]);
 
+  const handleAnchorClick = (sectionId) => (event) => {
+    event.preventDefault();
+    scrollSectionToCenter(sectionId);
+  };
+
+  const [featured, ...rest] = audienceSections;
+
   return (
-    <div className="app-shell pb-20 text-white">
-      <div className="grid-overlay" aria-hidden="true" />
-
-      <TopBar onHomeSectionClick={scrollSectionToCenter} />
-
-      <main>
-        <section className="mx-auto w-full max-w-7xl px-6 pb-10 pt-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 22 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            className="max-w-4xl"
+    <SiteLayout onHomeSectionClick={scrollSectionToCenter}>
+      <section className="mx-auto grid w-full max-w-7xl items-center gap-10 px-4 py-12 md:px-6 lg:min-h-[calc(100dvh-4rem)] lg:grid-cols-12 lg:gap-8 lg:px-8 lg:py-16">
+        <motion.div variants={heroStagger} initial="hidden" animate="show" className="lg:col-span-6">
+          <motion.h1
+            variants={heroItem}
+            className="text-5xl font-semibold leading-[0.95] tracking-tighter md:text-7xl"
           >
-            <h1 className="mt-4 max-w-4xl font-['Sora'] text-5xl font-extrabold leading-[0.95] tracking-tight text-white md:text-7xl">
-              Protect what matters.
-            </h1>
-            <p className="mt-6 max-w-3xl font-['Sora'] text-3xl font-bold leading-tight text-blue-100 md:text-5xl">
-              Affordable AI vision software for drone detection and object tracking.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-4">
-              <a
-                href="#contact"
-                className="inline-flex items-center gap-2 rounded-xl bg-blue-900 px-5 py-3 font-semibold text-white transition hover:translate-y-[-1px] hover:bg-blue-800"
-              >
-                Contact Us
-                <ArrowRight size={18} />
-              </a>
-              <a
-                href="#drone-makers"
-                className="inline-flex items-center rounded-xl border border-slate-500 px-5 py-3 font-semibold text-slate-100 transition hover:border-blue-300 hover:text-white"
-              >
-                Explore Solutions
-              </a>
-            </div>
+            Protect what matters.
+          </motion.h1>
+          <motion.p variants={heroItem} className="mt-6 max-w-[28ch] text-xl leading-snug text-fg-muted md:text-2xl">
+            Affordable AI vision software for drone detection and object tracking.
+          </motion.p>
+          <motion.div variants={heroItem} className="mt-10 flex flex-wrap gap-3">
+            <a href="#contact" onClick={handleAnchorClick("contact")} className={primaryButton}>
+              Contact
+              <ArrowRight size={16} weight="bold" />
+            </a>
+            <a href="#drone-makers" onClick={handleAnchorClick("drone-makers")} className={secondaryButton}>
+              Explore solutions
+            </a>
           </motion.div>
-        </section>
+        </motion.div>
 
-        <SectionDivider />
-
-        <section className="mx-auto mt-10 w-full max-w-7xl px-6 lg:px-8">
-          <SectionHeader
-            title="Built For The Teams Bringing Vision Systems Into The Field"
-            text="Whether you are building drones, strengthening ground defense systems, or deploying civilian monitoring solutions, Argentav delivers software designed for fast detection, dependable performance, and real-world operations."
+        <motion.div
+          initial={{ opacity: 0, scale: 1.04 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.1, ease }}
+          className="overflow-hidden bg-ink-raised lg:col-span-6"
+        >
+          <img
+            src={droneMakerHomepageImage}
+            alt="Three drones in flight, each framed by a detection box"
+            width="1536"
+            height="1024"
+            fetchPriority="high"
+            className="aspect-[4/3] w-full object-cover object-[78%_center] lg:aspect-auto lg:h-[min(72dvh,640px)]"
           />
+        </motion.div>
+      </section>
 
-          <div className="mt-8 space-y-6">
-            {audienceSections.map(({ id, path, eyebrow, title, text, icon: Icon, image, imageAlt }, index) => (
-              <motion.section
-                key={id}
-                id={id}
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.4 }}
-                transition={{ delay: index * 0.08, duration: 0.45 }}
-                className="section-block solution-card rounded-2xl p-6 md:p-8"
-              >
-                <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-                  <div className={image ? "lg:pr-12" : undefined}>
-                    <div className="flex items-center gap-3">
-                      <div className="flex h-11 w-11 items-center justify-center rounded-lg border border-blue-300/50 bg-blue-400/10 text-blue-100">
-                        <Icon size={20} />
-                      </div>
-                      <p className="font-['Sora'] text-sm uppercase tracking-[0.24em] text-blue-200 md:text-base">{eyebrow}</p>
-                    </div>
-                    <h3 className="mt-3 max-w-2xl font-['Sora'] text-3xl font-semibold text-white md:text-4xl">{title}</h3>
-                    <p className="mt-4 max-w-2xl text-lg leading-9 text-blue-100 md:text-xl">{text}</p>
-                    <Link
-                      to={path}
-                      className="mt-6 inline-flex items-center gap-2 rounded-xl bg-blue-900 px-5 py-3 font-semibold text-white transition hover:translate-y-[-1px] hover:bg-blue-800"
-                    >
-                      View Details
-                      <ArrowRight size={16} />
-                    </Link>
-                  </div>
-                  <div className="flex items-center justify-center rounded-xl text-center">
-                    {image ? (
-                      <img src={image} alt={imageAlt} className="w-full rounded-xl border border-slate-600 object-contain lg:w-[110%] lg:max-w-none lg:-translate-x-6" />
-                    ) : (
-                      <div className="flex aspect-[1535/1024] w-full items-center justify-center rounded-xl border border-slate-600 bg-slate-950 px-4 lg:w-[110%] lg:max-w-none lg:-translate-x-6">
-                        <p className="font-['Sora'] text-sm uppercase tracking-[0.16em] text-slate-300 md:text-base">
-                          Image Placeholder
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </motion.section>
-            ))}
+      <section className="mx-auto w-full max-w-7xl px-4 py-24 md:px-6 md:py-32 lg:px-8">
+        <motion.div {...reveal} className="max-w-3xl">
+          <h2 className="text-3xl font-semibold tracking-tighter md:text-5xl">
+            Built for the teams bringing vision systems into the field
+          </h2>
+          <p className="mt-5 max-w-[65ch] text-lg leading-relaxed text-fg-muted">
+            Whether you are building drones, strengthening ground defense systems, or deploying civilian monitoring solutions, Argentav delivers software designed for fast detection, dependable performance, and real-world operations.
+          </p>
+        </motion.div>
+
+        <motion.article
+          {...reveal}
+          id={featured.id}
+          className="mt-16 grid items-center gap-8 md:mt-20 lg:grid-cols-12 lg:gap-12"
+        >
+          <AudienceImage to={featured.path} src={featured.image} alt={featured.imageAlt} className="lg:col-span-7" />
+          <div className="lg:col-span-5">
+            <AudienceLabel icon={featured.icon}>{featured.label}</AudienceLabel>
+            <h3 className="mt-4 text-3xl font-semibold tracking-tight md:text-4xl">{featured.title}</h3>
+            <p className="mt-4 max-w-[52ch] text-lg leading-relaxed text-fg-muted">{featured.text}</p>
+            <DetailsLink to={featured.path} title={featured.title} />
           </div>
-        </section>
+        </motion.article>
 
-        <div className="mt-10">
-          <SectionDivider />
+        <div className="mt-20 grid gap-16 md:mt-28 md:grid-cols-2 md:gap-10 lg:gap-12">
+          {rest.map(({ id, path, label, title, text, icon, image, imageAlt }, index) => (
+            <motion.article
+              key={id}
+              id={id}
+              {...reveal}
+              transition={{ ...reveal.transition, delay: index * 0.1 }}
+              className={index === 1 ? "md:mt-24" : undefined}
+            >
+              <AudienceImage to={path} src={image} alt={imageAlt} />
+              <div className="mt-6">
+                <AudienceLabel icon={icon}>{label}</AudienceLabel>
+                <h3 className="mt-3 text-2xl font-semibold tracking-tight md:text-3xl">{title}</h3>
+                <p className="mt-3 max-w-[52ch] text-base leading-relaxed text-fg-muted md:text-lg">{text}</p>
+                <DetailsLink to={path} title={title} />
+              </div>
+            </motion.article>
+          ))}
         </div>
+      </section>
 
-        <section id="contact" className="mx-auto mt-10 w-full max-w-7xl px-6 lg:px-8">
-          <div className="section-block solution-card contact-card rounded-2xl p-7 md:p-10">
-            <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-              <div>
-                <p className="font-['Sora'] text-xs uppercase tracking-[0.22em] text-blue-200">Contact</p>
-                <h3 className="mt-3 font-['Sora'] text-3xl font-bold text-white">Ready For System Evaluation</h3>
-                <p className="mt-3 max-w-xl text-lg leading-8 text-blue-100 md:text-xl">
-                  Set up your first technical briefing and we will tailor detection profiles to your mission environment.
-                </p>
-              </div>
-            </div>
-            <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              <div className="rounded-xl border border-slate-700 bg-slate-950 p-4 text-base leading-8 text-slate-200 shadow-[0_8px_20px_rgba(0,0,0,0.35)] md:text-lg">
-                <Waypoints size={16} className="mb-2 text-blue-200" />
-                Deployable for fixed sites and mobile operation centers.
-              </div>
-              <div className="rounded-xl border border-slate-700 bg-slate-950 p-4 text-base leading-8 text-slate-200 shadow-[0_8px_20px_rgba(0,0,0,0.35)] md:text-lg">
-                <Radar size={16} className="mb-2 text-blue-200" />
-                Compatible with sensor fusion and distributed command pipelines.
-              </div>
-              <div className="rounded-xl border border-slate-700 bg-slate-950 p-4 text-base leading-8 text-slate-200 shadow-[0_8px_20px_rgba(0,0,0,0.35)] md:text-lg">
-                <Crosshair size={16} className="mb-2 text-blue-200" />
-                Designed for persistent tracking in high-noise operating zones.
-              </div>
-            </div>
-          </div>
-        </section>
-      </main>
-    </div>
+      {/* TODO: add a real contact method (email address or form) once available. */}
+      <section id="contact" className="bg-ink-raised">
+        <div className="mx-auto grid w-full max-w-7xl gap-12 px-4 py-24 md:px-6 md:py-28 lg:grid-cols-12 lg:gap-8 lg:px-8">
+          <motion.div {...reveal} className="lg:col-span-6">
+            <p className="font-mono text-xs uppercase tracking-[0.2em] text-signal">Contact</p>
+            <h2 className="mt-4 text-3xl font-semibold tracking-tighter md:text-5xl">Ready for system evaluation</h2>
+            <p className="mt-5 max-w-[48ch] text-lg leading-relaxed text-fg-muted">
+              Set up your first technical briefing and we will tailor detection profiles to your mission environment.
+            </p>
+          </motion.div>
+          <motion.ul {...reveal} className="grid gap-8 lg:col-span-5 lg:col-start-8 lg:self-end">
+            {capabilities.map(({ icon: Icon, text }) => (
+              <li key={text} className="flex gap-4">
+                <Icon size={24} weight="duotone" aria-hidden="true" className="mt-0.5 shrink-0 text-signal" />
+                <span className="text-base leading-relaxed text-fg md:text-lg">{text}</span>
+              </li>
+            ))}
+          </motion.ul>
+        </div>
+      </section>
+    </SiteLayout>
   );
 }
